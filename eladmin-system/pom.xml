@@ -10,7 +10,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>eladmin-system</artifactId>
-    <name>核心模块</name>
+    <name>业务模块</name>
 
     <properties>
         <jjwt.version>0.9.1</jjwt.version>
@@ -48,6 +48,13 @@
             <artifactId>quartz</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>org.mybatis.spring.boot</groupId>
+            <artifactId>mybatis-spring-boot-starter</artifactId>
+            <version>2.0.0</version>
+        </dependency>
+
+
     </dependencies>
 
     <build>
@@ -65,5 +72,6 @@
                 </configuration>
             </plugin>
         </plugins>
+
     </build>
 </project>
