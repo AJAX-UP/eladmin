@@ -70,7 +70,7 @@ public class XUSmsUtils {
 	}
 	
 	public static void main(String[] args) {
-		String sendCode = XUSmsUtils.getSms("18222390125", "", SmsTextUtils.pay2.getText());
+		String sendCode = XUSmsUtils.getSms("18222390125", "【嗨用呗】", SmsTextUtils.pay2.getText());
 		System.out.println("VIP融资咨询服务短信     sendCode={}"+sendCode);
 	}
 }
