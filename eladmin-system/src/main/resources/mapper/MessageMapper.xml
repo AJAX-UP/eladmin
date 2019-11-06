@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="me.zhengjie.modules.yueba.mapper.MessageMapper" >
+  <resultMap id="BaseResultMap" type="me.zhengjie.modules.yueba.domain.Message" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="send_user" property="sendUser" jdbcType="BIGINT" />
+    <result column="recive_user" property="reciveUser" jdbcType="BIGINT" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="vedio" property="vedio" jdbcType="DOUBLE" />
+    <result column="send_time" property="sendTime" jdbcType="TIMESTAMP" />
+    <result column="context" property="context" jdbcType="VARCHAR" />
+  </resultMap>
+
+
+  <sql id="Base_Column_List" >
+    id, send_user, recive_user, type, vedio, send_time, context
+  </sql>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from message
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from message
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+
+  <insert id="insert" parameterType="me.zhengjie.modules.yueba.domain.Message" >
+    insert into message (id, send_user, recive_user, 
+      type, vedio, send_time, 
+      context)
+    values (#{id,jdbcType=BIGINT}, #{sendUser,jdbcType=BIGINT}, #{reciveUser,jdbcType=BIGINT}, 
+      #{type,jdbcType=VARCHAR}, #{vedio,jdbcType=DOUBLE}, #{sendTime,jdbcType=TIMESTAMP}, 
+      #{context,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="me.zhengjie.modules.yueba.domain.Message" >
+    insert into message
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="sendUser != null" >
+        send_user,
+      </if>
+      <if test="reciveUser != null" >
+        recive_user,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="vedio != null" >
+        vedio,
+      </if>
+      <if test="sendTime != null" >
+        send_time,
+      </if>
+      <if test="context != null" >
+        context,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="sendUser != null" >
+        #{sendUser,jdbcType=BIGINT},
+      </if>
+      <if test="reciveUser != null" >
+        #{reciveUser,jdbcType=BIGINT},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="vedio != null" >
+        #{vedio,jdbcType=DOUBLE},
+      </if>
+      <if test="sendTime != null" >
+        #{sendTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="context != null" >
+        #{context,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="me.zhengjie.modules.yueba.domain.Message" >
+    update message
+    <set >
+      <if test="sendUser != null" >
+        send_user = #{sendUser,jdbcType=BIGINT},
+      </if>
+      <if test="reciveUser != null" >
+        recive_user = #{reciveUser,jdbcType=BIGINT},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="vedio != null" >
+        vedio = #{vedio,jdbcType=DOUBLE},
+      </if>
+      <if test="sendTime != null" >
+        send_time = #{sendTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="context != null" >
+        context = #{context,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="me.zhengjie.modules.yueba.domain.Message" >
+    update message
+    set send_user = #{sendUser,jdbcType=BIGINT},
+      recive_user = #{reciveUser,jdbcType=BIGINT},
+      type = #{type,jdbcType=VARCHAR},
+      vedio = #{vedio,jdbcType=DOUBLE},
+      send_time = #{sendTime,jdbcType=TIMESTAMP},
+      context = #{context,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

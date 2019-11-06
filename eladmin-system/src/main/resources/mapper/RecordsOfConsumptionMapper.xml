@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="me.zhengjie.modules.yueba.mapper.RecordsOfConsumptionMapper" >
+  <resultMap id="BaseResultMap" type="me.zhengjie.modules.yueba.domain.RecordsOfConsumption" >
+    <result column="id" property="id" jdbcType="BIGINT" />
+    <result column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="amount_of_money" property="amountOfMoney" jdbcType="DOUBLE" />
+    <result column="cost_time" property="costTime" jdbcType="TIMESTAMP" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+  </resultMap>
+
+
+  <sql id="Base_Column_List" >
+    id, user_id, amount_of_money, cost_time, type
+  </sql>
+  <insert id="insert" parameterType="me.zhengjie.modules.yueba.domain.RecordsOfConsumption" >
+    insert into records_of_consumption (id, user_id, amount_of_money, 
+      cost_time, type)
+    values (#{id,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, #{amountOfMoney,jdbcType=DOUBLE}, 
+      #{costTime,jdbcType=TIMESTAMP}, #{type,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="me.zhengjie.modules.yueba.domain.RecordsOfConsumption" >
+    insert into records_of_consumption
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="amountOfMoney != null" >
+        amount_of_money,
+      </if>
+      <if test="costTime != null" >
+        cost_time,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="amountOfMoney != null" >
+        #{amountOfMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="costTime != null" >
+        #{costTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+</mapper>

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="me.zhengjie.modules.yueba.mapper.UserAvatarMapper">
+  <resultMap id="BaseResultMap" type="me.zhengjie.modules.yueba.domain.UserAvatar">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="real_name" jdbcType="VARCHAR" property="realName" />
+    <result column="path" jdbcType="VARCHAR" property="path" />
+    <result column="size" jdbcType="VARCHAR" property="size" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    id, real_name, path, size, create_time
+  </sql>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from user_avatar
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from user_avatar
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+
+  <insert id="insert" parameterType="me.zhengjie.modules.yueba.domain.UserAvatar">
+    insert into user_avatar (id, real_name, path, 
+      size, create_time)
+    values (#{id,jdbcType=BIGINT}, #{realName,jdbcType=VARCHAR}, #{path,jdbcType=VARCHAR}, 
+      #{size,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="me.zhengjie.modules.yueba.domain.UserAvatar">
+    insert into user_avatar
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="realName != null">
+        real_name,
+      </if>
+      <if test="path != null">
+        path,
+      </if>
+      <if test="size != null">
+        size,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="realName != null">
+        #{realName,jdbcType=VARCHAR},
+      </if>
+      <if test="path != null">
+        #{path,jdbcType=VARCHAR},
+      </if>
+      <if test="size != null">
+        #{size,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="me.zhengjie.modules.yueba.domain.UserAvatar">
+    update user_avatar
+    <set>
+      <if test="realName != null">
+        real_name = #{realName,jdbcType=VARCHAR},
+      </if>
+      <if test="path != null">
+        path = #{path,jdbcType=VARCHAR},
+      </if>
+      <if test="size != null">
+        size = #{size,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="me.zhengjie.modules.yueba.domain.UserAvatar">
+    update user_avatar
+    set real_name = #{realName,jdbcType=VARCHAR},
+      path = #{path,jdbcType=VARCHAR},
+      size = #{size,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

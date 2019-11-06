@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="me.zhengjie.modules.yueba.mapper.GiftMapper" >
+  <resultMap id="BaseResultMap" type="me.zhengjie.modules.yueba.domain.Gift" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="gift_name" property="giftName" jdbcType="VARCHAR" />
+    <result column="gift_price" property="giftPrice" jdbcType="DOUBLE" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    id, gift_name, gift_price
+  </sql>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from gift
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from gift
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="me.zhengjie.modules.yueba.domain.Gift" >
+    insert into gift (id, gift_name, gift_price
+      )
+    values (#{id,jdbcType=BIGINT}, #{giftName,jdbcType=VARCHAR}, #{giftPrice,jdbcType=DOUBLE}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="me.zhengjie.modules.yueba.domain.Gift" >
+    insert into gift
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="giftName != null" >
+        gift_name,
+      </if>
+      <if test="giftPrice != null" >
+        gift_price,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="giftName != null" >
+        #{giftName,jdbcType=VARCHAR},
+      </if>
+      <if test="giftPrice != null" >
+        #{giftPrice,jdbcType=DOUBLE},
+      </if>
+    </trim>
+  </insert>
+
+
+  <update id="updateByPrimaryKeySelective" parameterType="me.zhengjie.modules.yueba.domain.Gift" >
+    update gift
+    <set >
+      <if test="giftName != null" >
+        gift_name = #{giftName,jdbcType=VARCHAR},
+      </if>
+      <if test="giftPrice != null" >
+        gift_price = #{giftPrice,jdbcType=DOUBLE},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="me.zhengjie.modules.yueba.domain.Gift" >
+    update gift
+    set gift_name = #{giftName,jdbcType=VARCHAR},
+      gift_price = #{giftPrice,jdbcType=DOUBLE}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

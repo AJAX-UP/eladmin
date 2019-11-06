@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="me.zhengjie.modules.yueba.mapper.MenuMapper" >
+  <resultMap id="BaseResultMap" type="me.zhengjie.modules.yueba.domain.Menu" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="i_frame" property="iFrame" jdbcType="BIT" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="component" property="component" jdbcType="VARCHAR" />
+    <result column="pid" property="pid" jdbcType="BIGINT" />
+    <result column="sort" property="sort" jdbcType="BIGINT" />
+    <result column="icon" property="icon" jdbcType="VARCHAR" />
+    <result column="path" property="path" jdbcType="VARCHAR" />
+    <result column="cache" property="cache" jdbcType="BIT" />
+    <result column="hidden" property="hidden" jdbcType="BIT" />
+    <result column="component_name" property="componentName" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="permission" property="permission" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+  </resultMap>
+
+
+  <sql id="Base_Column_List" >
+    id, i_frame, name, component, pid, sort, icon, path, cache, hidden, component_name, 
+    create_time, permission, type
+  </sql>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from menu
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from menu
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+
+  <insert id="insert" parameterType="me.zhengjie.modules.yueba.domain.Menu" >
+    insert into menu (id, i_frame, name, 
+      component, pid, sort, 
+      icon, path, cache, hidden, 
+      component_name, create_time, permission, 
+      type)
+    values (#{id,jdbcType=BIGINT}, #{iFrame,jdbcType=BIT}, #{name,jdbcType=VARCHAR}, 
+      #{component,jdbcType=VARCHAR}, #{pid,jdbcType=BIGINT}, #{sort,jdbcType=BIGINT}, 
+      #{icon,jdbcType=VARCHAR}, #{path,jdbcType=VARCHAR}, #{cache,jdbcType=BIT}, #{hidden,jdbcType=BIT}, 
+      #{componentName,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{permission,jdbcType=VARCHAR}, 
+      #{type,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="me.zhengjie.modules.yueba.domain.Menu" >
+    insert into menu
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="iFrame != null" >
+        i_frame,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="component != null" >
+        component,
+      </if>
+      <if test="pid != null" >
+        pid,
+      </if>
+      <if test="sort != null" >
+        sort,
+      </if>
+      <if test="icon != null" >
+        icon,
+      </if>
+      <if test="path != null" >
+        path,
+      </if>
+      <if test="cache != null" >
+        cache,
+      </if>
+      <if test="hidden != null" >
+        hidden,
+      </if>
+      <if test="componentName != null" >
+        component_name,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="permission != null" >
+        permission,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="iFrame != null" >
+        #{iFrame,jdbcType=BIT},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="component != null" >
+        #{component,jdbcType=VARCHAR},
+      </if>
+      <if test="pid != null" >
+        #{pid,jdbcType=BIGINT},
+      </if>
+      <if test="sort != null" >
+        #{sort,jdbcType=BIGINT},
+      </if>
+      <if test="icon != null" >
+        #{icon,jdbcType=VARCHAR},
+      </if>
+      <if test="path != null" >
+        #{path,jdbcType=VARCHAR},
+      </if>
+      <if test="cache != null" >
+        #{cache,jdbcType=BIT},
+      </if>
+      <if test="hidden != null" >
+        #{hidden,jdbcType=BIT},
+      </if>
+      <if test="componentName != null" >
+        #{componentName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="permission != null" >
+        #{permission,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+
+
+  <update id="updateByPrimaryKeySelective" parameterType="me.zhengjie.modules.yueba.domain.Menu" >
+    update menu
+    <set >
+      <if test="iFrame != null" >
+        i_frame = #{iFrame,jdbcType=BIT},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="component != null" >
+        component = #{component,jdbcType=VARCHAR},
+      </if>
+      <if test="pid != null" >
+        pid = #{pid,jdbcType=BIGINT},
+      </if>
+      <if test="sort != null" >
+        sort = #{sort,jdbcType=BIGINT},
+      </if>
+      <if test="icon != null" >
+        icon = #{icon,jdbcType=VARCHAR},
+      </if>
+      <if test="path != null" >
+        path = #{path,jdbcType=VARCHAR},
+      </if>
+      <if test="cache != null" >
+        cache = #{cache,jdbcType=BIT},
+      </if>
+      <if test="hidden != null" >
+        hidden = #{hidden,jdbcType=BIT},
+      </if>
+      <if test="componentName != null" >
+        component_name = #{componentName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="permission != null" >
+        permission = #{permission,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="me.zhengjie.modules.yueba.domain.Menu" >
+    update menu
+    set i_frame = #{iFrame,jdbcType=BIT},
+      name = #{name,jdbcType=VARCHAR},
+      component = #{component,jdbcType=VARCHAR},
+      pid = #{pid,jdbcType=BIGINT},
+      sort = #{sort,jdbcType=BIGINT},
+      icon = #{icon,jdbcType=VARCHAR},
+      path = #{path,jdbcType=VARCHAR},
+      cache = #{cache,jdbcType=BIT},
+      hidden = #{hidden,jdbcType=BIT},
+      component_name = #{componentName,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      permission = #{permission,jdbcType=VARCHAR},
+      type = #{type,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

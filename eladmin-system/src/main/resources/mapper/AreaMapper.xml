@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="me.zhengjie.modules.yueba.mapper.AreaMapper" >
+  <resultMap id="BaseResultMap" type="me.zhengjie.modules.yueba.domain.Area" >
+    <id column="area_id" property="areaId" jdbcType="INTEGER" />
+    <result column="area_pid" property="areaPid" jdbcType="INTEGER" />
+    <result column="area_name" property="areaName" jdbcType="VARCHAR" />
+    <result column="area_depth" property="areaDepth" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    area_id, area_pid, area_name, area_depth
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from area
+    where area_id = #{areaId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from area
+    where area_id = #{areaId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="me.zhengjie.modules.yueba.domain.Area" >
+    insert into area (area_id, area_pid, area_name, 
+      area_depth)
+    values (#{areaId,jdbcType=INTEGER}, #{areaPid,jdbcType=INTEGER}, #{areaName,jdbcType=VARCHAR}, 
+      #{areaDepth,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="me.zhengjie.modules.yueba.domain.Area" >
+    insert into area
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="areaId != null" >
+        area_id,
+      </if>
+      <if test="areaPid != null" >
+        area_pid,
+      </if>
+      <if test="areaName != null" >
+        area_name,
+      </if>
+      <if test="areaDepth != null" >
+        area_depth,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="areaId != null" >
+        #{areaId,jdbcType=INTEGER},
+      </if>
+      <if test="areaPid != null" >
+        #{areaPid,jdbcType=INTEGER},
+      </if>
+      <if test="areaName != null" >
+        #{areaName,jdbcType=VARCHAR},
+      </if>
+      <if test="areaDepth != null" >
+        #{areaDepth,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="me.zhengjie.modules.yueba.domain.Area" >
+    update area
+    <set >
+      <if test="areaPid != null" >
+        area_pid = #{areaPid,jdbcType=INTEGER},
+      </if>
+      <if test="areaName != null" >
+        area_name = #{areaName,jdbcType=VARCHAR},
+      </if>
+      <if test="areaDepth != null" >
+        area_depth = #{areaDepth,jdbcType=INTEGER},
+      </if>
+    </set>
+    where area_id = #{areaId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="me.zhengjie.modules.yueba.domain.Area" >
+    update area
+    set area_pid = #{areaPid,jdbcType=INTEGER},
+      area_name = #{areaName,jdbcType=VARCHAR},
+      area_depth = #{areaDepth,jdbcType=INTEGER}
+    where area_id = #{areaId,jdbcType=INTEGER}
+  </update>
+</mapper>

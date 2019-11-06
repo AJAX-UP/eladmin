@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="me.zhengjie.modules.yueba.mapper.AttentionRecordMapper" >
+  <resultMap id="BaseResultMap" type="me.zhengjie.modules.yueba.domain.AttentionRecord" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="attention_id" property="attentionId" jdbcType="BIGINT" />
+    <result column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="attention_time" property="attentionTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    id, attention_id, user_id, attention_time
+  </sql>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from attention_record
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from attention_record
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+
+  <insert id="insert" parameterType="me.zhengjie.modules.yueba.domain.AttentionRecord" >
+    insert into attention_record (id, attention_id, user_id, 
+      attention_time)
+    values (#{id,jdbcType=BIGINT}, #{attentionId,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, 
+      #{attentionTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="me.zhengjie.modules.yueba.domain.AttentionRecord" >
+    insert into attention_record
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="attentionId != null" >
+        attention_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="attentionTime != null" >
+        attention_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="attentionId != null" >
+        #{attentionId,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="attentionTime != null" >
+        #{attentionTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+
+
+
+  <update id="updateByPrimaryKeySelective" parameterType="me.zhengjie.modules.yueba.domain.AttentionRecord" >
+    update attention_record
+    <set >
+      <if test="attentionId != null" >
+        attention_id = #{attentionId,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="attentionTime != null" >
+        attention_time = #{attentionTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="me.zhengjie.modules.yueba.domain.AttentionRecord" >
+    update attention_record
+    set attention_id = #{attentionId,jdbcType=BIGINT},
+      user_id = #{userId,jdbcType=BIGINT},
+      attention_time = #{attentionTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

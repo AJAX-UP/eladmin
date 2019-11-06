@@ -1,18 +1,19 @@
 package me.zhengjie.modules.yueba.domain;
 
-import java.sql.Timestamp;
+import java.util.Date;
 
-/**
-* @author cgj
-* @date 2019-11-05
-*/
-public class Yueba{
+public class Job {
     private Long id;
+
     private String name;
+
     private Boolean enabled;
+
     private Long sort;
+
     private Long deptId;
-    private Timestamp createTime;
+
+    private Date createTime;
 
     public Long getId() {
         return id;
@@ -27,7 +28,7 @@ public class Yueba{
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.name = name == null ? null : name.trim();
     }
 
     public Boolean getEnabled() {
@@ -54,11 +55,11 @@ public class Yueba{
         this.deptId = deptId;
     }
 
-    public Timestamp getCreateTime() {
+    public Date getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(Timestamp createTime) {
+    public void setCreateTime(Date createTime) {
         this.createTime = createTime;
     }
 }

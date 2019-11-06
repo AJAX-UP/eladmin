@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="me.zhengjie.modules.yueba.mapper.GiftRecordMapper" >
+  <resultMap id="BaseResultMap" type="me.zhengjie.modules.yueba.domain.GiftRecord" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="gift_id" property="giftId" jdbcType="BIGINT" />
+    <result column="give_gift" property="giveGift" jdbcType="BIGINT" />
+    <result column="recive_gift" property="reciveGift" jdbcType="BIGINT" />
+    <result column="give_time" property="giveTime" jdbcType="TIMESTAMP" />
+    <result column="gift_num" property="giftNum" jdbcType="INTEGER" />
+  </resultMap>
+
+
+  <sql id="Base_Column_List" >
+    id, gift_id, give_gift, recive_gift, give_time, gift_num
+  </sql>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from gift_record
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from gift_record
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+
+  <insert id="insert" parameterType="me.zhengjie.modules.yueba.domain.GiftRecord" >
+    insert into gift_record (id, gift_id, give_gift, 
+      recive_gift, give_time, gift_num
+      )
+    values (#{id,jdbcType=BIGINT}, #{giftId,jdbcType=BIGINT}, #{giveGift,jdbcType=BIGINT}, 
+      #{reciveGift,jdbcType=BIGINT}, #{giveTime,jdbcType=TIMESTAMP}, #{giftNum,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="me.zhengjie.modules.yueba.domain.GiftRecord" >
+    insert into gift_record
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="giftId != null" >
+        gift_id,
+      </if>
+      <if test="giveGift != null" >
+        give_gift,
+      </if>
+      <if test="reciveGift != null" >
+        recive_gift,
+      </if>
+      <if test="giveTime != null" >
+        give_time,
+      </if>
+      <if test="giftNum != null" >
+        gift_num,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="giftId != null" >
+        #{giftId,jdbcType=BIGINT},
+      </if>
+      <if test="giveGift != null" >
+        #{giveGift,jdbcType=BIGINT},
+      </if>
+      <if test="reciveGift != null" >
+        #{reciveGift,jdbcType=BIGINT},
+      </if>
+      <if test="giveTime != null" >
+        #{giveTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="giftNum != null" >
+        #{giftNum,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+
+
+  <update id="updateByPrimaryKeySelective" parameterType="me.zhengjie.modules.yueba.domain.GiftRecord" >
+    update gift_record
+    <set >
+      <if test="giftId != null" >
+        gift_id = #{giftId,jdbcType=BIGINT},
+      </if>
+      <if test="giveGift != null" >
+        give_gift = #{giveGift,jdbcType=BIGINT},
+      </if>
+      <if test="reciveGift != null" >
+        recive_gift = #{reciveGift,jdbcType=BIGINT},
+      </if>
+      <if test="giveTime != null" >
+        give_time = #{giveTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="giftNum != null" >
+        gift_num = #{giftNum,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="me.zhengjie.modules.yueba.domain.GiftRecord" >
+    update gift_record
+    set gift_id = #{giftId,jdbcType=BIGINT},
+      give_gift = #{giveGift,jdbcType=BIGINT},
+      recive_gift = #{reciveGift,jdbcType=BIGINT},
+      give_time = #{giveTime,jdbcType=TIMESTAMP},
+      gift_num = #{giftNum,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

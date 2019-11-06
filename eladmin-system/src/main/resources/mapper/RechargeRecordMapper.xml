@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="me.zhengjie.modules.yueba.mapper.RechargeRecordMapper" >
+  <resultMap id="BaseResultMap" type="me.zhengjie.modules.yueba.domain.RechargeRecord" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="amount_of_money" property="amountOfMoney" jdbcType="DOUBLE" />
+    <result column="recharge_id" property="rechargeId" jdbcType="BIGINT" />
+    <result column="recharge_time" property="rechargeTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+
+
+  <sql id="Base_Column_List" >
+    id, amount_of_money, recharge_id, recharge_time
+  </sql>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from recharge_record
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from recharge_record
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+
+  <insert id="insert" parameterType="me.zhengjie.modules.yueba.domain.RechargeRecord" >
+    insert into recharge_record (id, amount_of_money, recharge_id, 
+      recharge_time)
+    values (#{id,jdbcType=BIGINT}, #{amountOfMoney,jdbcType=DOUBLE}, #{rechargeId,jdbcType=BIGINT}, 
+      #{rechargeTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="me.zhengjie.modules.yueba.domain.RechargeRecord" >
+    insert into recharge_record
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="amountOfMoney != null" >
+        amount_of_money,
+      </if>
+      <if test="rechargeId != null" >
+        recharge_id,
+      </if>
+      <if test="rechargeTime != null" >
+        recharge_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="amountOfMoney != null" >
+        #{amountOfMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="rechargeId != null" >
+        #{rechargeId,jdbcType=BIGINT},
+      </if>
+      <if test="rechargeTime != null" >
+        #{rechargeTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="me.zhengjie.modules.yueba.domain.RechargeRecord" >
+    update recharge_record
+    <set >
+      <if test="amountOfMoney != null" >
+        amount_of_money = #{amountOfMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="rechargeId != null" >
+        recharge_id = #{rechargeId,jdbcType=BIGINT},
+      </if>
+      <if test="rechargeTime != null" >
+        recharge_time = #{rechargeTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="me.zhengjie.modules.yueba.domain.RechargeRecord" >
+    update recharge_record
+    set amount_of_money = #{amountOfMoney,jdbcType=DOUBLE},
+      recharge_id = #{rechargeId,jdbcType=BIGINT},
+      recharge_time = #{rechargeTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

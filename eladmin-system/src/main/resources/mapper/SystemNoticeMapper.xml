@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="me.zhengjie.modules.yueba.mapper.SystemNoticeMapper" >
+  <resultMap id="BaseResultMap" type="me.zhengjie.modules.yueba.domain.SystemNotice" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="context" property="context" jdbcType="VARCHAR" />
+    <result column="notice_time" property="noticeTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+
+
+  <sql id="Base_Column_List" >
+    id, title, context, notice_time
+  </sql>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from system_notice
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from system_notice
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+
+  <insert id="insert" parameterType="me.zhengjie.modules.yueba.domain.SystemNotice" >
+    insert into system_notice (id, title, context, 
+      notice_time)
+    values (#{id,jdbcType=BIGINT}, #{title,jdbcType=VARCHAR}, #{context,jdbcType=VARCHAR}, 
+      #{noticeTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="me.zhengjie.modules.yueba.domain.SystemNotice" >
+    insert into system_notice
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="context != null" >
+        context,
+      </if>
+      <if test="noticeTime != null" >
+        notice_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="context != null" >
+        #{context,jdbcType=VARCHAR},
+      </if>
+      <if test="noticeTime != null" >
+        #{noticeTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+
+
+  <update id="updateByPrimaryKeySelective" parameterType="me.zhengjie.modules.yueba.domain.SystemNotice" >
+    update system_notice
+    <set >
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="context != null" >
+        context = #{context,jdbcType=VARCHAR},
+      </if>
+      <if test="noticeTime != null" >
+        notice_time = #{noticeTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="me.zhengjie.modules.yueba.domain.SystemNotice" >
+    update system_notice
+    set title = #{title,jdbcType=VARCHAR},
+      context = #{context,jdbcType=VARCHAR},
+      notice_time = #{noticeTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
