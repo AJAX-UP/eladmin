@@ -93,7 +93,11 @@ public class RedisServiceImpl implements RedisService {
         redisTemplate.opsForValue().set(key,val);
         redisTemplate.expire(key,expiration, TimeUnit.MINUTES);
     }
-
+    @Override
+    public void saveCodeByTime(String key, Object val,Long expir) {
+        redisTemplate.opsForValue().set(key,val);
+        redisTemplate.expire(key,expir, TimeUnit.MINUTES);
+    }
     @Override
     public void download(List<RedisVo> redisVos, HttpServletResponse response) throws IOException {
         List<Map<String, Object>> list = new ArrayList<>();

@@ -55,6 +55,14 @@ public interface RedisService {
     void deleteAll();
 
     /**
+     * 设置自定义过期时间（单位：分钟）
+     * @param key
+     * @param val
+     * @param expir
+     */
+    public void saveCodeByTime(String key, Object val,Long expir);
+
+    /**
      *
      * @param redisVos /
      * @param response /

@@ -4,8 +4,11 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import me.zhengjie.aop.log.Log;
+import me.zhengjie.modules.monitor.service.RedisService;
 import me.zhengjie.modules.yueba.domain.User;
 import me.zhengjie.modules.yueba.service.UserService;
+import me.zhengjie.modules.yueba.utils.sms.SmsTextUtils;
+import me.zhengjie.modules.yueba.utils.sms.XUSmsUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,16 +28,38 @@ public class AppUserController {
     @Autowired
     private  UserService userService;
 
-    @Log("查询Yueba")
-    @ApiOperation("查询Yueba")
-    @PostMapping(value = "/list")
-    //@PreAuthorize("@el.check('yueba:list')")
-    public ResponseEntity getYuebas(@RequestParam @ApiParam(name = "phone", value = "手机号") String phone,
-                                    @RequestParam @ApiParam(name = "key", value = "key值") String key,
-                                    @RequestParam @ApiParam(name = "sign", value = "sign值") String sign,
+    @Autowired
+    private  RedisService redisService;
+
+    @Log("查询用户")
+    @ApiOperation("查询用户")
+    @PostMapping(value = "/findUserById")
+    public ResponseEntity findUserById(@RequestParam @ApiParam(name = "id", value = "手机号") Long id,
+                                   HttpServletRequest request){
+        return new ResponseEntity<>(userService.findById(id),HttpStatus.OK);
+    }
+
+    @Log("获取手机验证码")
+    @ApiOperation("获取手机验证码")
+    @PostMapping(value = "/getCode")
+    public ResponseEntity getCode(@RequestParam @ApiParam(name = "phone", value = "手机号") String phone,
                                     HttpServletRequest request){
-        User u=userService.findById(1l);
-        return new ResponseEntity<>(userService.findById(1l),HttpStatus.OK);
+        return new ResponseEntity<>(XUSmsUtils.getSms(phone, "",redisService),HttpStatus.OK);
+    }
+
+    @Log("app登录")
+    @ApiOperation("app登录")
+    @PostMapping(value = "/appLogin")
+    public ResponseEntity appLogin(@RequestParam @ApiParam(name = "phone", value = "手机号") String phone,
+                                   @RequestParam @ApiParam(name = "code", value = "验证码") String code,
+                                  HttpServletRequest request){
+        String redisCode=redisService.getCodeVal(code);
+        if(!"".equals(redisCode)&&code.equals(redisCode)){
+            //查询用户，1,有返回当前用户 2,没有就创建用户
+            return new ResponseEntity<>("",HttpStatus.OK);
+        }else{
+            return new ResponseEntity<>("",HttpStatus.UNAUTHORIZED);
+        }
     }
 
 }
