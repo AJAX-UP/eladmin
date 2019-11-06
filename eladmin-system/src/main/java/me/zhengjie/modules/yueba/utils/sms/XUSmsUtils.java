@@ -18,7 +18,7 @@ public class XUSmsUtils {
 		try {
 			SmsUserNameUtils sms = new SmsUserNameUtils(sign);
 			String code = mRandom(1000, 9999) + "";
-			String text = "亲爱的用户，您的验证码是" + code + "，有效时间为10分钟，请尽快验证";
+			String text = "亲爱的用户，您的验证码是" + code + "，有效时间为1分钟，请尽快验证";
 			String doSendsms = new Post(sms.getUserName(), sms.getPassword()).doSendsms(phone, text);
 			if ("0".equals(doSendsms)) {
 				// 存储验证码
