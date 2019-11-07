@@ -2,9 +2,7 @@ package me.zhengjie.modules.system.rest;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import me.zhengjie.aop.log.Log;
 import me.zhengjie.config.DataScope;
-import me.zhengjie.domain.VerificationCode;
 import me.zhengjie.modules.system.domain.User;
 import me.zhengjie.exception.BadRequestException;
 import me.zhengjie.modules.system.domain.vo.UserPassVo;
@@ -12,7 +10,6 @@ import me.zhengjie.modules.system.service.DeptService;
 import me.zhengjie.modules.system.service.RoleService;
 import me.zhengjie.modules.system.service.dto.RoleSmallDTO;
 import me.zhengjie.modules.system.service.dto.UserQueryCriteria;
-import me.zhengjie.service.VerificationCodeService;
 import me.zhengjie.utils.*;
 import me.zhengjie.modules.system.service.UserService;
 import org.springframework.data.domain.Pageable;
@@ -47,17 +44,15 @@ public class UserController {
 
     private final RoleService roleService;
 
-    private final VerificationCodeService verificationCodeService;
 
-    public UserController(UserService userService, DataScope dataScope, DeptService deptService, RoleService roleService, VerificationCodeService verificationCodeService) {
+    public UserController(UserService userService, DataScope dataScope, DeptService deptService, RoleService roleService) {
         this.userService = userService;
         this.dataScope = dataScope;
         this.deptService = deptService;
         this.roleService = roleService;
-        this.verificationCodeService = verificationCodeService;
     }
 
-    @Log("导出用户数据")
+
     @ApiOperation("导出用户数据")
     @GetMapping(value = "/download")
     @PreAuthorize("@el.check('user:list')")
@@ -65,7 +60,7 @@ public class UserController {
         userService.download(userService.queryAll(criteria), response);
     }
 
-    @Log("查询用户")
+
     @ApiOperation("查询用户")
     @GetMapping
     @PreAuthorize("@el.check('user:list')")
@@ -97,7 +92,6 @@ public class UserController {
         }
     }
 
-    @Log("新增用户")
     @ApiOperation("新增用户")
     @PostMapping
     @PreAuthorize("@el.check('user:add')")
@@ -106,7 +100,6 @@ public class UserController {
         return new ResponseEntity<>(userService.create(resources),HttpStatus.CREATED);
     }
 
-    @Log("修改用户")
     @ApiOperation("修改用户")
     @PutMapping
     @PreAuthorize("@el.check('user:edit')")
@@ -116,7 +109,7 @@ public class UserController {
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 
-    @Log("删除用户")
+
     @ApiOperation("删除用户")
     @DeleteMapping(value = "/{id}")
     @PreAuthorize("@el.check('user:del')")
@@ -152,7 +145,7 @@ public class UserController {
         return new ResponseEntity(HttpStatus.OK);
     }
 
-    @Log("修改邮箱")
+
     @ApiOperation("修改邮箱")
     @PostMapping(value = "/updateEmail/{code}")
     public ResponseEntity updateEmail(@PathVariable String code,@RequestBody User user){
@@ -160,8 +153,8 @@ public class UserController {
         if(!userDetails.getPassword().equals(EncryptUtils.encryptPassword(user.getPassword()))){
             throw new BadRequestException("密码错误");
         }
-        VerificationCode verificationCode = new VerificationCode(code, ElAdminConstant.RESET_MAIL,"email",user.getEmail());
-        verificationCodeService.validated(verificationCode);
+//        VerificationCode verificationCode = new VerificationCode(code, ElAdminConstant.RESET_MAIL,"email",user.getEmail());
+//        verificationCodeService.validated(verificationCode);
         userService.updateEmail(userDetails.getUsername(),user.getEmail());
         return new ResponseEntity(HttpStatus.OK);
     }

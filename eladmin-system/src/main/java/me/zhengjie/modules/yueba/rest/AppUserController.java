@@ -3,26 +3,17 @@ package me.zhengjie.modules.yueba.rest;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import me.zhengjie.annotation.AnonymousAccess;
-import me.zhengjie.aop.log.Log;
-import me.zhengjie.exception.BadRequestException;
 import me.zhengjie.modules.monitor.service.RedisService;
-import me.zhengjie.modules.security.security.AuthInfo;
-import me.zhengjie.modules.security.security.JwtUser;
-import me.zhengjie.modules.security.service.OnlineUserService;
-import me.zhengjie.modules.security.utils.JwtTokenUtil;
-import me.zhengjie.modules.yueba.domain.User;
 import me.zhengjie.modules.yueba.service.UserService;
-import me.zhengjie.modules.yueba.utils.sms.SmsTextUtils;
 import me.zhengjie.modules.yueba.utils.sms.XUSmsUtils;
-import me.zhengjie.utils.EncryptUtils;
 import me.zhengjie.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AccountExpiredException;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -41,7 +32,6 @@ public class AppUserController {
     @Autowired
     private  RedisService redisService;
 
-    @Log("查询用户")
     @ApiOperation("查询用户")
     @PostMapping(value = "/findUserById")
     public ResponseEntity findUserById(@RequestParam @ApiParam(name = "id", value = "手机号") Long id,
@@ -49,7 +39,7 @@ public class AppUserController {
         return new ResponseEntity<>(userService.findById(id),HttpStatus.OK);
     }
 
-    @Log("获取手机验证码")
+
     @ApiOperation("获取手机验证码")
     @PostMapping(value = "/getCode")
     public ResponseEntity getCode(@RequestParam @ApiParam(name = "phone", value = "手机号") String phone,
@@ -57,7 +47,6 @@ public class AppUserController {
         return new ResponseEntity<>(XUSmsUtils.getSms(phone, "",redisService),HttpStatus.OK);
     }
 
-    @Log("app登录")
     @ApiOperation("app登录")
     @PostMapping(value = "/appLogin")
     public ResponseEntity appLogin(@RequestParam @ApiParam(name = "phone", value = "手机号") String phone,

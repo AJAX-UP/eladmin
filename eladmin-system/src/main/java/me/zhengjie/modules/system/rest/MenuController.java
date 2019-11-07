@@ -2,7 +2,6 @@ package me.zhengjie.modules.system.rest;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import me.zhengjie.aop.log.Log;
 import me.zhengjie.modules.system.domain.Menu;
 import me.zhengjie.exception.BadRequestException;
 import me.zhengjie.modules.system.service.MenuService;
@@ -48,7 +47,6 @@ public class MenuController {
         this.roleService = roleService;
     }
 
-    @Log("导出菜单数据")
     @ApiOperation("导出菜单数据")
     @GetMapping(value = "/download")
     @PreAuthorize("@el.check('menu:list')")
@@ -72,7 +70,6 @@ public class MenuController {
         return new ResponseEntity<>(menuService.getMenuTree(menuService.findByPid(0L)),HttpStatus.OK);
     }
 
-    @Log("查询菜单")
     @ApiOperation("查询菜单")
     @GetMapping
     @PreAuthorize("@el.check('menu:list')")
@@ -81,7 +78,6 @@ public class MenuController {
         return new ResponseEntity<>(menuService.buildTree(menuDTOList),HttpStatus.OK);
     }
 
-    @Log("新增菜单")
     @ApiOperation("新增菜单")
     @PostMapping
     @PreAuthorize("@el.check('menu:add')")
@@ -92,7 +88,6 @@ public class MenuController {
         return new ResponseEntity<>(menuService.create(resources),HttpStatus.CREATED);
     }
 
-    @Log("修改菜单")
     @ApiOperation("修改菜单")
     @PutMapping
     @PreAuthorize("@el.check('menu:edit')")
@@ -101,7 +96,6 @@ public class MenuController {
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 
-    @Log("删除菜单")
     @ApiOperation("删除菜单")
     @DeleteMapping(value = "/{id}")
     @PreAuthorize("@el.check('menu:del')")

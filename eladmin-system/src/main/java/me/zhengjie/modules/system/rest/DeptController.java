@@ -2,7 +2,6 @@ package me.zhengjie.modules.system.rest;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import me.zhengjie.aop.log.Log;
 import me.zhengjie.config.DataScope;
 import me.zhengjie.exception.BadRequestException;
 import me.zhengjie.modules.system.domain.Dept;
@@ -40,7 +39,6 @@ public class DeptController {
         this.dataScope = dataScope;
     }
 
-    @Log("导出部门数据")
     @ApiOperation("导出部门数据")
     @GetMapping(value = "/download")
     @PreAuthorize("@el.check('dept:list')")
@@ -48,7 +46,6 @@ public class DeptController {
         deptService.download(deptService.queryAll(criteria), response);
     }
 
-    @Log("查询部门")
     @ApiOperation("查询部门")
     @GetMapping
     @PreAuthorize("@el.check('user:list','dept:list')")
@@ -59,7 +56,6 @@ public class DeptController {
         return new ResponseEntity<>(deptService.buildTree(deptDTOS),HttpStatus.OK);
     }
 
-    @Log("新增部门")
     @ApiOperation("新增部门")
     @PostMapping
     @PreAuthorize("@el.check('dept:add')")
@@ -70,7 +66,6 @@ public class DeptController {
         return new ResponseEntity<>(deptService.create(resources),HttpStatus.CREATED);
     }
 
-    @Log("修改部门")
     @ApiOperation("修改部门")
     @PutMapping
     @PreAuthorize("@el.check('dept:edit')")
@@ -79,7 +74,6 @@ public class DeptController {
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 
-    @Log("删除部门")
     @ApiOperation("删除部门")
     @DeleteMapping(value = "/{id}")
     @PreAuthorize("@el.check('dept:del')")

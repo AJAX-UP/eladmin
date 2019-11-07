@@ -2,7 +2,6 @@ package me.zhengjie.modules.system.rest;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import me.zhengjie.aop.log.Log;
 import me.zhengjie.config.DataScope;
 import me.zhengjie.exception.BadRequestException;
 import me.zhengjie.modules.system.domain.Job;
@@ -39,7 +38,6 @@ public class JobController {
         this.dataScope = dataScope;
     }
 
-    @Log("导出岗位数据")
     @ApiOperation("导出岗位数据")
     @GetMapping(value = "/download")
     @PreAuthorize("@el.check('job:list')")
@@ -47,7 +45,6 @@ public class JobController {
         jobService.download(jobService.queryAll(criteria), response);
     }
 
-    @Log("查询岗位")
     @ApiOperation("查询岗位")
     @GetMapping
     @PreAuthorize("@el.check('job:list','user:list')")
@@ -58,7 +55,6 @@ public class JobController {
         return new ResponseEntity<>(jobService.queryAll(criteria, pageable),HttpStatus.OK);
     }
 
-    @Log("新增岗位")
     @ApiOperation("新增岗位")
     @PostMapping
     @PreAuthorize("@el.check('job:add')")
@@ -69,7 +65,6 @@ public class JobController {
         return new ResponseEntity<>(jobService.create(resources),HttpStatus.CREATED);
     }
 
-    @Log("修改岗位")
     @ApiOperation("修改岗位")
     @PutMapping
     @PreAuthorize("@el.check('job:edit')")
@@ -78,7 +73,6 @@ public class JobController {
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 
-    @Log("删除岗位")
     @ApiOperation("删除岗位")
     @DeleteMapping(value = "/{id}")
     @PreAuthorize("@el.check('job:del')")

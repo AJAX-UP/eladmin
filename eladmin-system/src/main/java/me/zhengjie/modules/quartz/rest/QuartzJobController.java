@@ -3,7 +3,6 @@ package me.zhengjie.modules.quartz.rest;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
-import me.zhengjie.aop.log.Log;
 import me.zhengjie.exception.BadRequestException;
 import me.zhengjie.modules.quartz.domain.QuartzJob;
 import me.zhengjie.modules.quartz.service.QuartzJobService;
@@ -36,7 +35,6 @@ public class QuartzJobController {
         this.quartzJobService = quartzJobService;
     }
 
-    @Log("查询定时任务")
     @ApiOperation("查询定时任务")
     @GetMapping
     @PreAuthorize("@el.check('timing:list')")
@@ -44,7 +42,6 @@ public class QuartzJobController {
         return new ResponseEntity<>(quartzJobService.queryAll(criteria,pageable), HttpStatus.OK);
     }
 
-    @Log("导出任务数据")
     @ApiOperation("导出任务数据")
     @GetMapping(value = "/download")
     @PreAuthorize("@el.check('timing:list')")
@@ -52,7 +49,6 @@ public class QuartzJobController {
         quartzJobService.download(quartzJobService.queryAll(criteria), response);
     }
 
-    @Log("导出日志数据")
     @ApiOperation("导出日志数据")
     @GetMapping(value = "/download/log")
     @PreAuthorize("@el.check('timing:list')")
@@ -67,7 +63,7 @@ public class QuartzJobController {
         return new ResponseEntity<>(quartzJobService.queryAllLog(criteria,pageable), HttpStatus.OK);
     }
 
-    @Log("新增定时任务")
+
     @ApiOperation("新增定时任务")
     @PostMapping
     @PreAuthorize("@el.check('timing:add')")
@@ -78,7 +74,7 @@ public class QuartzJobController {
         return new ResponseEntity<>(quartzJobService.create(resources),HttpStatus.CREATED);
     }
 
-    @Log("修改定时任务")
+
     @ApiOperation("修改定时任务")
     @PutMapping
     @PreAuthorize("@el.check('timing:edit')")
@@ -87,7 +83,7 @@ public class QuartzJobController {
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 
-    @Log("更改定时任务状态")
+
     @ApiOperation("更改定时任务状态")
     @PutMapping(value = "/{id}")
     @PreAuthorize("@el.check('timing:edit')")
@@ -96,7 +92,7 @@ public class QuartzJobController {
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 
-    @Log("执行定时任务")
+
     @ApiOperation("执行定时任务")
     @PutMapping(value = "/exec/{id}")
     @PreAuthorize("@el.check('timing:edit')")
@@ -105,7 +101,7 @@ public class QuartzJobController {
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 
-    @Log("删除定时任务")
+
     @ApiOperation("删除定时任务")
     @DeleteMapping(value = "/{id}")
     @PreAuthorize("@el.check('timing:del')")

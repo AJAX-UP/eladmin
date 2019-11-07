@@ -6,7 +6,6 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import me.zhengjie.annotation.AnonymousAccess;
-import me.zhengjie.aop.log.Log;
 import me.zhengjie.exception.BadRequestException;
 import me.zhengjie.modules.monitor.service.RedisService;
 import me.zhengjie.modules.security.security.AuthInfo;
@@ -57,7 +56,6 @@ public class AuthenticationController {
         this.onlineUserService = onlineUserService;
     }
 
-    @Log("用户登录")
     @ApiOperation("登录授权")
     @AnonymousAccess
     @PostMapping(value = "/login")

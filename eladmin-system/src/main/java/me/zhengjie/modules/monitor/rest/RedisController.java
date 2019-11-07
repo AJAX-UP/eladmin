@@ -2,7 +2,6 @@ package me.zhengjie.modules.monitor.rest;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import me.zhengjie.aop.log.Log;
 import me.zhengjie.modules.monitor.domain.vo.RedisVo;
 import me.zhengjie.modules.monitor.service.RedisService;
 import org.springframework.data.domain.Pageable;
@@ -29,7 +28,6 @@ public class RedisController {
         this.redisService = redisService;
     }
 
-    @Log("查询Redis缓存")
     @GetMapping
     @ApiOperation("查询Redis缓存")
     @PreAuthorize("@el.check('redis:list')")
@@ -37,7 +35,6 @@ public class RedisController {
         return new ResponseEntity<>(redisService.findByKey(key,pageable), HttpStatus.OK);
     }
 
-    @Log("导出数据")
     @ApiOperation("导出数据")
     @GetMapping(value = "/download")
     @PreAuthorize("@el.check('redis:list')")
@@ -45,7 +42,6 @@ public class RedisController {
         redisService.download(redisService.findByKey(key), response);
     }
 
-    @Log("删除Redis缓存")
     @DeleteMapping
     @ApiOperation("删除Redis缓存")
     @PreAuthorize("@el.check('redis:del')")
@@ -53,8 +49,7 @@ public class RedisController {
         redisService.delete(resources.getKey());
         return new ResponseEntity(HttpStatus.OK);
     }
-
-    @Log("清空Redis缓存")
+    
     @DeleteMapping(value = "/all")
     @ApiOperation("清空Redis缓存")
     @PreAuthorize("@el.check('redis:del')")

@@ -3,7 +3,6 @@ package me.zhengjie.modules.system.rest;
 import cn.hutool.core.lang.Dict;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import me.zhengjie.aop.log.Log;
 import me.zhengjie.modules.system.domain.Role;
 import me.zhengjie.exception.BadRequestException;
 import me.zhengjie.modules.system.service.RoleService;
@@ -50,7 +49,6 @@ public class RoleController {
         return new ResponseEntity<>(roleService.findById(id), HttpStatus.OK);
     }
 
-    @Log("导出角色数据")
     @ApiOperation("导出角色数据")
     @GetMapping(value = "/download")
     @PreAuthorize("@el.check('role:list')")
@@ -65,7 +63,6 @@ public class RoleController {
         return new ResponseEntity<>(roleService.queryAll(pageable),HttpStatus.OK);
     }
 
-    @Log("查询角色")
     @ApiOperation("查询角色")
     @GetMapping
     @PreAuthorize("@el.check('roles:list')")
@@ -80,7 +77,6 @@ public class RoleController {
         return new ResponseEntity<>(Dict.create().set("level", Collections.min(levels)),HttpStatus.OK);
     }
 
-    @Log("新增角色")
     @ApiOperation("新增角色")
     @PostMapping
     @PreAuthorize("@el.check('roles:add')")
@@ -91,7 +87,6 @@ public class RoleController {
         return new ResponseEntity<>(roleService.create(resources),HttpStatus.CREATED);
     }
 
-    @Log("修改角色")
     @ApiOperation("修改角色")
     @PutMapping
     @PreAuthorize("@el.check('roles:edit')")
@@ -100,7 +95,6 @@ public class RoleController {
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 
-    @Log("修改角色菜单")
     @ApiOperation("修改角色菜单")
     @PutMapping(value = "/menu")
     @PreAuthorize("@el.check('roles:edit')")
@@ -109,7 +103,6 @@ public class RoleController {
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 
-    @Log("删除角色")
     @ApiOperation("删除角色")
     @DeleteMapping(value = "/{id}")
     @PreAuthorize("@el.check('roles:del')")

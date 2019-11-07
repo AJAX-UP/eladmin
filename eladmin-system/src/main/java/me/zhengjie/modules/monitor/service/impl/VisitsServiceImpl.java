@@ -4,12 +4,11 @@ import lombok.extern.slf4j.Slf4j;
 import me.zhengjie.modules.monitor.domain.Visits;
 import me.zhengjie.modules.monitor.repository.VisitsRepository;
 import me.zhengjie.modules.monitor.service.VisitsService;
-import me.zhengjie.repository.LogRepository;
 import me.zhengjie.utils.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDate;
 import java.util.HashMap;
@@ -28,11 +27,10 @@ public class VisitsServiceImpl implements VisitsService {
 
     private final VisitsRepository visitsRepository;
 
-    private final LogRepository logRepository;
 
-    public VisitsServiceImpl(VisitsRepository visitsRepository, LogRepository logRepository) {
+
+    public VisitsServiceImpl(VisitsRepository visitsRepository) {
         this.visitsRepository = visitsRepository;
-        this.logRepository = logRepository;
     }
 
     @Override
@@ -54,8 +52,6 @@ public class VisitsServiceImpl implements VisitsService {
         LocalDate localDate = LocalDate.now();
         Visits visits = visitsRepository.findByDate(localDate.toString());
         visits.setPvCounts(visits.getPvCounts()+1);
-        long ipCounts = logRepository.findIp(localDate.toString(), localDate.plusDays(1).toString());
-        visits.setIpCounts(ipCounts);
         visitsRepository.save(visits);
     }
 
